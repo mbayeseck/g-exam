@@ -85,15 +85,15 @@
 		<select name="station" id="station" onchange="this.form.submit()">
 		<option value="0"> Centre ...</option>
 		<?php
-		for($i = 0; $i < $nb_site; $i++)
-				{							
+		$liste_centre=$bdd->query("SELECT C.NUMCENTRE, C.NOMCENTRE, D.NUMCENTRE
+		FROM candidat D LEFT JOIN centre C ON D.NUMCENTRE=C.NUMCENTRE");
+			while ($donnees = $liste_centre->fetch_assoc())
+				{		
                 ?>	
-			<option name="station" value="<?php echo($code_site[$i]); ?>"<?php echo((isset($idr) && $idr == $code_site[$i])?" selected=\"selected\"":null); ?> ><?php echo($nom_petrolier[$i]." ".$nom_site[$i]." ".$dir); ?></option>
+			<option name="station" value="3" ><?php echo($donnees['NUMCENTRE']." ".$donnees['NOMCENTRE']); ?></option>
 			<?php
-                }
-						
-            ?>
-			
+                }						
+            ?>			
 		</select><br/><br/>
 		<label>Salle : </label>	
 		<select name="station" id="station" onchange="this.form.submit()">
