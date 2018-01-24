@@ -83,7 +83,7 @@
 		<label>N° Candidat : </label><input name="numbase" id="numb"/><br/><br/>		
 		<label>Centre : </label>	
 		<select name="station" id="station" onchange="this.form.submit()">
-		<option value="0"> Centre ...</option>
+		<option value="0"> Cen</option>
 		<?php
 		//$liste_centre=$con->query("SELECT C.NUMCENTRE, C.NOMCENTRE, D.NUMCENTRE
 		//FROM candidat D LEFT JOIN centre C ON D.NUMCENTRE=C.NUMCENTRE");
