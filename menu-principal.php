@@ -15,7 +15,7 @@
 						 <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion des Candidats<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="nouvelle-demande.php">Ajouter Candidat</a></li>
+                                <li><a href="nouveau-candidat.php">Ajouter Candidat</a></li>
                                 <li class="divider"></li>
                                 <li><a href="affichage-candidat.php">Liste Candidats</a></li>
                             </ul>

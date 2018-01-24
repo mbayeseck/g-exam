@@ -51,18 +51,18 @@
             <section class="content">
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <h3 class="box-title">LISTE DES DEMANDES</h3>
+                        <h3 class="box-title">LISTE DES CANDIDATS</h3>
                     </div>
                     <div class="box-body">
 			<!--CONTENU DE LA PAGE-->
 			<?php
 					if(isset($_POST['edit']))
 					{
-						include('edition-demande.php');
+						include('edition-candidat.php');
 
 					}
 					else
-					include('liste-demande.php');
+					include('liste-candidat.php');
 			?>
 			<!--FIN DU CONTENU DE LA PAGE-->
                     </div>

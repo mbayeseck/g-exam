@@ -39,7 +39,7 @@
 <div class="wrapper">
     <!-- INCLUDE ICI LE MENU PRINCIPAL-->
 	<?php	
-			/*include('connexion.php');     */
+		include('connexion.php');
 		include('menu-principal.php');
 		/*Recupération de la valeur du service envoyée par le formulaire*/
 	/*	$idr = isset($_POST['station'])?$_POST['station']:null;		
@@ -47,21 +47,17 @@
 									LEFT JOIN Zone Z ON Z.idZone=I.idZone");*/
 			if(isset($_POST['valider'])&&isset($_POST['station']))
 				{
-					$date=date("Y-m-d");
-					$heure=date("H:i:s");
-					$station= $_POST['station'];
-					$codeAgent='MKS';
-					$Equipement= $_POST['equipement'];
-					$Technicien= $_POST['technicien'];
-					$Etat='NOUV';
-					$NumBT= $_POST['numBt'];
-					$typedemande= $_POST['typedemande'];
-					$priorite= $_POST['priorite'];
-					$datecreation=$date." ".$heure;
-					$datedemande=$date." ".$heure;
-					$description=$_POST['description'];
-					$causes=$_POST['causes'];
-			$save=$bdd->query("insert into Demande values('','$codeAgent','$Equipement','$Technicien','$station','$Etat','$NumBT','$typedemande','$datecreation','$datedemande','$description','$causes','$priorite')");	
+					$numbase= $_POST['NUMBASE'];
+					$numsalle= $_POST['NUMSALLE'];
+					$numcentre= $_POST['CENTRE'];
+					$cni= $_POST['CNI'];
+					$prenom= $_POST['PRENOM'];
+					$nom= $_POST['NOM'];
+					$datenais=date("Y-m-d");
+					$lieunais=date('LIEUNAIS');
+					$genre=date('GENRE');
+					$provenance=date('PROVENANCE');
+			$save=$bdd->query("insert into candidat values('','$numbase','','$numsalle','$numcentre','$cni','$prenom','$nom','$datenais','$lieunais','$genre','$provenance')");	
 			if($save){
 				echo "<script type='text/javascript'>document.location.replace('index.php');</script>";			
 			}
@@ -69,22 +65,7 @@
 			{
 				echo "<script type='text/javascript'>alert('Verifiez les Input SVP !!!!!!')</script>";			
 			}
-            	}	
-			$reponse1=$bdd->query("SELECT S.codeSite,S.nomSite,P.nomPet FROM Site S LEFT JOIN Petrolier P ON P.codePet=S.codePet");
-			$code_site = array();
-			$nom_site = array();
-			$nom_petrolier = array();
-			$nb_site = 0;
-			if($reponse1 != false)
-				{
-					 while($row1=$reponse1->fetch())
-						{
-							array_push($code_site, $row1['codeSite']);
-							array_push($nom_site, $row1['nomSite']);
-							array_push($nom_petrolier, $row1['nomPet']);
-							$nb_site++;
-						}
-				}	
+           }			
 	
 	?>
     
@@ -99,10 +80,10 @@
 					
 			<!--CONTENU DE LA PAGE-->			
 		<form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post" id="changer">
-		<label>Station : </label>
-		
+		<label>N° Candidat : </label><input name="numbase" id="numb"/><br/><br/>		
+		<label>Centre : </label>	
 		<select name="station" id="station" onchange="this.form.submit()">
-		<option value="0"> Station ...</option>
+		<option value="0"> Centre ...</option>
 		<?php
 		for($i = 0; $i < $nb_site; $i++)
 				{							
@@ -113,7 +94,34 @@
 						
             ?>
 			
-		</select>
+		</select><br/><br/>
+		<label>Salle : </label>	
+		<select name="station" id="station" onchange="this.form.submit()">
+		<option value="0"> Salle ...</option>
+		<?php
+		for($i = 0; $i < $nb_site; $i++)
+				{							
+                ?>	
+			<option name="station" value="<?php echo($code_site[$i]); ?>"<?php echo((isset($idr) && $idr == $code_site[$i])?" selected=\"selected\"":null); ?> ><?php echo($nom_petrolier[$i]." ".$nom_site[$i]." ".$dir); ?></option>
+			<?php
+                }
+						
+            ?>
+			
+		</select><br/><br/>
+		<label>N° CNI : </label><input name="numcni" id="cni"/><br/><br/>
+		<label>Prénom : </label><input name="prenom" id="prenom"/><br/><br/>
+		<label>Nom : </label><input name="nom" id="nom"/><br/><br/>
+		<label>Date de Naissance : </label><input name="daten" id="datepicker"/><br/><br/>
+		<label>Lieu de Naissance : </label><input name="lieun" id="lieu"/><br/><br/>
+		<label>Genre : </label>
+			<select name="genre" id="genre">
+				<option value="M">M</option>
+				<option value="F">F</option>
+			</select><br/><br/>
+		<label>Provenance : </label><input name="pro" id="pro"/><br/><br/>
+		
+		
 		
 		
 		
@@ -147,7 +155,7 @@
 				}
 				?>
 		</select><br/><br/>
-		<label>Numéro BT : </label><input name="numBt" id="numBt"/><br/><br/>
+		
 		<label>Affecté à : </label>
 		<select name="technicien" id="technicien">
 							<?php
@@ -159,11 +167,10 @@
 								$reponse->closeCursor();
                             ?>
 		</select><br/><br/>
-		<label>Type de Demande : </label><select name="typedemande" id="type"><option value="MA">MA</option></select><br/><br/>
-		<label>Priorité : </label><select name="priorite" id="priorite"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select><br/><br/>
-		<label>Date de Demande : </label><input name="dated" id="datepicker"/><br/><br/>
-		<label>Description du Problème : </label><textarea name="description" id="description"></textarea><br/>
-		<label>Causes : </label><textarea name="causes" id="causes"></textarea><br/>
+		
+		
+		
+		
 		<label></label><input type="submit" value="Valider" name="valider">
 		</form>
 		

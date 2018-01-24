@@ -1,6 +1,4 @@
-
-					
-					<table id="example" class="display" cellspacing="0" width="100%">
+			<table id="example" class="display" cellspacing="0" width="100%">
 						<thead>
 						<tr>
 							<th>N° Candidat</th>
