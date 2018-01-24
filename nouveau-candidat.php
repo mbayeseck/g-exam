@@ -119,58 +119,7 @@
 				<option value="M">M</option>
 				<option value="F">F</option>
 			</select><br/><br/>
-		<label>Provenance : </label><input name="pro" id="pro"/><br/><br/>
-		
-		
-		
-		
-		
-		<?php
-			if(isset($idr)){
-				$reponse2=$bdd->query("SELECT idEquip,nomEquip".
-						" FROM Equipement".
-						" WHERE codeSite = '$idr'".
-						" ORDER BY codeType");
-				$nd = 0;
-				$code_equip = array();
-				$nom_equip = array();		
-				while($row2=$reponse2->fetch())
-						{
-						array_push($code_equip, $row2['idEquip']);
-						array_push($nom_equip, $row2['nomEquip']);
-						$nd++;
-						}
-				?>	
-		<br/><br/><label>Equipement : </label>				
-		<select name="equipement" id="equipement">
-				<option value="-1">---Equipement---</option>			
-				<?php
-				for($i = 0; $i < $nd; $i++)
-					{	
-				?>		
-		
-		<option value="<?php echo($code_equip[$i]); ?>"><?php echo($nom_equip[$i]); ?></option>
-				<?php
-				}
-				}
-				?>
-		</select><br/><br/>
-		
-		<label>Affecté à : </label>
-		<select name="technicien" id="technicien">
-							<?php
-                                while($row=$reponse->fetch()){
-                            ?>
-		<option value="<?=$row['idInter']?>"><?=$row['prenomInter']," ",$row['nomInter']?></option>
-							<?php
-                                }
-								$reponse->closeCursor();
-                            ?>
-		</select><br/><br/>
-		
-		
-		
-		
+		<label>Provenance : </label><input name="pro" id="pro"/><br/><br/>	
 		<label></label><input type="submit" value="Valider" name="valider">
 		</form>
 		
