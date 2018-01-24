@@ -85,8 +85,9 @@
 		<select name="station" id="station" onchange="this.form.submit()">
 		<option value="0"> Centre ...</option>
 		<?php
-		$liste_centre=$bdd->query("SELECT C.NUMCENTRE, C.NOMCENTRE, D.NUMCENTRE
-		FROM candidat D LEFT JOIN centre C ON D.NUMCENTRE=C.NUMCENTRE");
+		//$liste_centre=$con->query("SELECT C.NUMCENTRE, C.NOMCENTRE, D.NUMCENTRE
+		//FROM candidat D LEFT JOIN centre C ON D.NUMCENTRE=C.NUMCENTRE");
+		$liste_centre=$con->query("SELECT C.NUMCENTRE, C.NOMCENTRE FROM centre C");
 			while ($donnees = $liste_centre->fetch_assoc())
 				{		
                 ?>	
