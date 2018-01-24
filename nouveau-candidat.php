@@ -74,7 +74,7 @@
             <section class="content">
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <h3 class="box-title">NOUVEAU CANDIDAT</h3>
+                        <h3 class="box-title">NOUVEAU CANDIDA</h3>
                     </div>
                     <div class="box-body">
 					
