@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 24 Janvier 2018 à 21:19
+-- Généré le :  Ven 26 Janvier 2018 à 16:25
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -65,7 +65,10 @@ CREATE TABLE `candidat` (
 --
 
 INSERT INTO `candidat` (`NUMBASE`, `NUMCENTRE`, `NUMSALLE`, `CNI`, `PRENOM`, `NOM`, `DATENAIS`, `LIEUNAIS`, `GENRE`, `PROVENANCE`) VALUES
-(1, 1, 20, 1101990161, 'Cheikh', 'NDIAYE', '1990-10-23', 'Dakar', 'M', 'LMS');
+(1, 1, 20, 1101990161, 'Cheikh', 'NDIAYE', '1990-10-23', 'Dakar', 'M', 'LMS'),
+(2, 1, 21, 254785547, 'Mbene', 'Pene', '1992-01-05', 'Kaolack', 'F', 'LND'),
+(3, 1, 21, 254785567, 'Mbaye', 'Fall', '1991-01-05', 'Keur Massar', 'M', 'LND'),
+(4, 1, 20, 254785577, 'Demba', 'DIOP', '1992-02-07', 'Kaolack', 'M', 'LND');
 
 -- --------------------------------------------------------
 
@@ -223,8 +226,8 @@ CREATE TABLE `salle` (
 --
 
 INSERT INTO `salle` (`NUMSALLE`, `NOMSALLE`, `BATIMENT`, `NUMCENTRE`) VALUES
-(20, 'Salle 20', 'A', 0),
-(21, 'Salle 21', 'A', 0);
+(20, 'Salle 20', 'A', 1),
+(21, 'Salle 21', 'A', 1);
 
 -- --------------------------------------------------------
 
