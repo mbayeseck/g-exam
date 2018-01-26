@@ -116,7 +116,7 @@
         // dès le chargement de la page, on remplit la liste des centres
         remplirCentre();
 		
-		// lorsque le pays sera changé dans la liste, on charge la liste des provinces ou états correspondants
+		// lorsque le centre sera changé dans la liste, on charge la liste des salles
         $("#centre").change(function (event) {
             remplirProvinces();
         });
@@ -132,17 +132,17 @@ function remplirCentre() {
         .done(function (response, textStatus, jqXHR) {
             // Appel réussi : on affiche le code HTML généré par le code serveur
             if ("REQUETE" == response) {
-                $("#centre").html("<option value=''>Un problème technique nous empêche de retrouver les pays (code R).</option>");
+                $("#centre").html("<option value=''>Un problème technique(code R).</option>");
             }
             else if ("AUCUNEDONNEE" == response) {
-                $("#centre").html("<option value=''>Il n'y a actuellement aucun pays dans le système.</option>");
+                $("#centre").html("<option value=''>Il n'y a actuellement aucun centre dans le système.</option>");
             }
             else if ("NONDETERMINE" == response) {
-                $("#centre").html("<option value=''>Un problème technique nous empêche de retrouver les pays (code I).</option>");
+                $("#centre").html("<option value=''>Un problème technique(code I).</option>");
             }
             else if (response.indexOf('<option') != 0) {
                 // la chaîne ne débute pas par <option donc c'est probablement un message d'erreur PHP retourné par AJAX
-                $("#centre").html("<option value=''>Un problème technique nous empêche de retrouver les pays (code E).</option>");
+                $("#centre").html("<option value=''>Un problème technique(code E).</option>");
             }
             else {
                 $("#centre").html("<option value=''>Veuillez choisir...</option>" + response);
@@ -150,7 +150,7 @@ function remplirCentre() {
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             // Réagit si le code serveur n'a pas pu être appelé par AJAX, s'il a planté ou s'il n'a pas retourné le bon type de données
-            $("#centre").html("<option value=''>Un problème technique nous empêche de retrouver les pays (code A).</option>");
+            $("#centre").html("<option value=''>Un problème technique(code A).</option>");
         });
     }
 
