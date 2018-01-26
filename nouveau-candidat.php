@@ -82,33 +82,13 @@
 		<form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post" id="changer">
 		<label>N° Candidat : </label><input name="numbase" id="numb"/><br/><br/>		
 		<label>Centre : </label>	
-		<select name="station" id="station" onchange="this.form.submit()">
-		<option value="0"> Cen</option>
-		<?php
-		//$liste_centre=$con->query("SELECT C.NUMCENTRE, C.NOMCENTRE, D.NUMCENTRE
-		//FROM candidat D LEFT JOIN centre C ON D.NUMCENTRE=C.NUMCENTRE");
-		$liste_centre=$con->query("SELECT C.NUMCENTRE, C.NOMCENTRE FROM centre C");
-			while ($donnees = $liste_centre->fetch_assoc())
-				{		
-                ?>	
-			<option name="station" value="3" ><?php echo($donnees['NUMCENTRE']." ".$donnees['NOMCENTRE']); ?></option>
-			<?php
-                }						
-            ?>			
+		<select name="centre" id="centre" size="1">
+		<!--<option value="0"> Centre ...</option>	-->
+    		
 		</select><br/><br/>
 		<label>Salle : </label>	
-		<select name="station" id="station" onchange="this.form.submit()">
-		<option value="0"> Salle ...</option>
-		<?php
-		for($i = 0; $i < $nb_site; $i++)
-				{							
-                ?>	
-			<option name="station" value="<?php echo($code_site[$i]); ?>"<?php echo((isset($idr) && $idr == $code_site[$i])?" selected=\"selected\"":null); ?> ><?php echo($nom_petrolier[$i]." ".$nom_site[$i]." ".$dir); ?></option>
-			<?php
-                }
-						
-            ?>
-			
+		<select name="salle" id="salle" >
+		<!--<option value="0"> Salle ...</option> -->
 		</select><br/><br/>
 		<label>N° CNI : </label><input name="numcni" id="cni"/><br/><br/>
 		<label>Prénom : </label><input name="prenom" id="prenom"/><br/><br/>
@@ -130,6 +110,90 @@
             </section>
         </div>
     </div>
+	
+<script>
+    $(function () {
+        // dès le chargement de la page, on remplit la liste des centres
+        remplirCentre();
+		
+		// lorsque le pays sera changé dans la liste, on charge la liste des provinces ou états correspondants
+        $("#centre").change(function (event) {
+            remplirProvinces();
+        });
+    });
+function remplirCentre() {
+    var jqxhr = $.ajax({
+            type: 'get', // on n'a pas de paramètres à envoyer alors GET est sécuritaire
+            url: 'centregenerate.php',
+            dataType: "html", // le fichier php fait un echo de code HTML
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            data: ""
+        })
+        .done(function (response, textStatus, jqXHR) {
+            // Appel réussi : on affiche le code HTML généré par le code serveur
+            if ("REQUETE" == response) {
+                $("#centre").html("<option value=''>Un problème technique nous empêche de retrouver les pays (code R).</option>");
+            }
+            else if ("AUCUNEDONNEE" == response) {
+                $("#centre").html("<option value=''>Il n'y a actuellement aucun pays dans le système.</option>");
+            }
+            else if ("NONDETERMINE" == response) {
+                $("#centre").html("<option value=''>Un problème technique nous empêche de retrouver les pays (code I).</option>");
+            }
+            else if (response.indexOf('<option') != 0) {
+                // la chaîne ne débute pas par <option donc c'est probablement un message d'erreur PHP retourné par AJAX
+                $("#centre").html("<option value=''>Un problème technique nous empêche de retrouver les pays (code E).</option>");
+            }
+            else {
+                $("#centre").html("<option value=''>Veuillez choisir...</option>" + response);
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            // Réagit si le code serveur n'a pas pu être appelé par AJAX, s'il a planté ou s'il n'a pas retourné le bon type de données
+            $("#centre").html("<option value=''>Un problème technique nous empêche de retrouver les pays (code A).</option>");
+        });
+    }
+
+function remplirProvinces() {
+
+        var centre = $('#centre').val();
+        var dataString = 'centre=' + centre;
+        var jqxhr = $.ajax({
+            type: 'post',
+            url: 'centretosallegenerate.php',
+            dataType: "html", // le fichier php fait un echo de code HTML
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            data: dataString
+        })
+        .done(function (response, textStatus, jqXHR) {
+            // Appel réussi : on affiche le code HTML généré par le code serveur
+            if ("PARAMETRE" == response) {
+                $("#salle").html("<option value=''>Le pays sélectionné n'est pas valide.</option>");
+            }
+            else if ("REQUETE" == response) {
+                $("#salle").html("<option value=''>Un problème technique nous empêche de retrouver les provinces (code R).</option>");
+            }
+            else if ("AUCUNEDONNEE" == response) {
+                $("#salle").html("<option value=''>Il n'y a actuellement aucune province dans le système.</option>");
+            }
+            else if ("NONDETERMINE" == response) {
+                $("#salle").html("<option value=''>Un problème technique nous empêche de retrouver les provinces (code I).</option>");
+            }
+            else if (response.indexOf('<option') != 0) {
+                // la chaîne ne débute pas par <option donc c'est probablement un message d'erreur PHP retourné par AJAX
+                $("#salle").html("<option value=''>Un problème technique nous empêche de retrouver les provinces (code E).</option>");
+            }
+            else {
+                $("#salle").html("<option value=''>Veuillez choisir...</option>" + response);
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            // Réagit si le code serveur n'a pas pu être appelé par AJAX, s'il a planté ou s'il n'a pas retourné le bon type de données
+            $("#salle").html("<option value=''>Un problème technique nous empêche de retrouver les provinces (code A).</option>");
+        });
+    }	
+</script>
+ 
  <!--PIED DE PAGE ICI-->
 	<?php
 		include('pied-page.php');
