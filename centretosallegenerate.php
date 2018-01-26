@@ -41,7 +41,7 @@ if ($donneesValides && '' == $retour) {
         $stmt->store_result();
         if ($stmt->num_rows > 0) {
             $stmt->bind_result($salle_id, $salle_nom);
-            while ($stmt->fetch_assoc()) {
+            while ($stmt->fetch()) {
 
                 $retour .= '<option value="'.$salle_id.'">'.$salle_nom.'</option>';
             }
