@@ -135,7 +135,7 @@ function remplirCentre() {
                 $("#centre").html("<option value=''>Un problème technique(code R).</option>");
             }
             else if ("AUCUNEDONNEE" == response) {
-                $("#centre").html("<option value=''>Il n'y a actuellement aucun centre dans le système.</option>");
+                $("#centre").html("<option value=''>Aucun Centre !!!</option>");
             }
             else if ("NONDETERMINE" == response) {
                 $("#centre").html("<option value=''>Un problème technique(code I).</option>");
@@ -168,20 +168,20 @@ function remplirProvinces() {
         .done(function (response, textStatus, jqXHR) {
             // Appel réussi : on affiche le code HTML généré par le code serveur
             if ("PARAMETRE" == response) {
-                $("#salle").html("<option value=''>Le pays sélectionné n'est pas valide.</option>");
+                $("#salle").html("<option value=''>Le centre sélectionné n'est pas valide.</option>");
             }
             else if ("REQUETE" == response) {
-                $("#salle").html("<option value=''>Un problème technique nous empêche de retrouver les provinces (code R).</option>");
+                $("#salle").html("<option value=''>Un problème technique(code R).</option>");
             }
             else if ("AUCUNEDONNEE" == response) {
-                $("#salle").html("<option value=''>Il n'y a actuellement aucune province dans le système.</option>");
+                $("#salle").html("<option value=''>Aucune Salle !!!</option>");
             }
             else if ("NONDETERMINE" == response) {
-                $("#salle").html("<option value=''>Un problème technique nous empêche de retrouver les provinces (code I).</option>");
+                $("#salle").html("<option value=''>Un problème technique(code I).</option>");
             }
             else if (response.indexOf('<option') != 0) {
                 // la chaîne ne débute pas par <option donc c'est probablement un message d'erreur PHP retourné par AJAX
-                $("#salle").html("<option value=''>Un problème technique nous empêche de retrouver les provinces (code E).</option>");
+                $("#salle").html("<option value=''>Un problème technique(code E).</option>");
             }
             else {
                 $("#salle").html("<option value=''>Veuillez choisir...</option>" + response);
@@ -189,7 +189,7 @@ function remplirProvinces() {
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             // Réagit si le code serveur n'a pas pu être appelé par AJAX, s'il a planté ou s'il n'a pas retourné le bon type de données
-            $("#salle").html("<option value=''>Un problème technique nous empêche de retrouver les provinces (code A).</option>");
+            $("#salle").html("<option value=''>Un problème technique(code A).</option>");
         });
     }	
 </script>
