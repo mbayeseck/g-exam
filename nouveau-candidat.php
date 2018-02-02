@@ -45,9 +45,8 @@
 	/*	$idr = isset($_POST['station'])?$_POST['station']:null;		
 		$reponse=$bdd->query("SELECT I.idInter,I.nomInter,I.prenomInter,I.contactInter,Z.nomZone,I.latitude,I.longitude FROM Intervenant I 
 									LEFT JOIN Zone Z ON Z.idZone=I.idZone");*/
-			if(isset($_POST['valider'])&&isset($_POST['station']))
+			if(isset($_POST['valider']))
 				{
-					$numbase= $_POST['NUMBASE'];
 					$numsalle= $_POST['NUMSALLE'];
 					$numcentre= $_POST['CENTRE'];
 					$cni= $_POST['CNI'];
@@ -57,7 +56,7 @@
 					$lieunais=date('LIEUNAIS');
 					$genre=date('GENRE');
 					$provenance=date('PROVENANCE');
-			$save=$bdd->query("insert into candidat values('','$numbase','','$numsalle','$numcentre','$cni','$prenom','$nom','$datenais','$lieunais','$genre','$provenance')");	
+			$save=$bdd->query("insert into candidat values('5','$numsalle','$numcentre','$cni','$prenom','$nom','$datenais','$lieunais','$genre','$provenance')");	
 			if($save){
 				echo "<script type='text/javascript'>document.location.replace('index.php');</script>";			
 			}
@@ -74,7 +73,7 @@
             <section class="content">
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <h3 class="box-title">NOUVEAU CANDIDA</h3>
+                        <h3 class="box-title">NOUVEAU CANDIDAT</h3>
                     </div>
                     <div class="box-body">
 					
@@ -118,7 +117,7 @@
 		
 		// lorsque le centre sera changé dans la liste, on charge la liste des salles
         $("#centre").change(function (event) {
-            remplirProvinces();
+            remplirSalle();
         });
     });
 function remplirCentre() {
@@ -154,7 +153,7 @@ function remplirCentre() {
         });
     }
 
-function remplirProvinces() {
+function remplirSalle() {
 
         var centre = $('#centre').val();
         var dataString = 'centre=' + centre;
