@@ -56,7 +56,7 @@
 					$lieunais=date('LIEUNAIS');
 					$genre=date('GENRE');
 					$provenance=date('PROVENANCE');
-			$save=$bdd->query("insert into candidat values('5','$numsalle','$numcentre','$cni','$prenom','$nom','$datenais','$lieunais','$genre','$provenance')");	
+			$save=$con->query("insert into candidat values('5','".$numsalle."','".$numcentre."','".$cni."','".$prenom."','".$nom."','".$datenais."','".$lieunais."','".$genre."','".$provenance."')");	
 			if($save){
 				echo "<script type='text/javascript'>document.location.replace('index.php');</script>";			
 			}
@@ -78,8 +78,7 @@
                     <div class="box-body">
 					
 			<!--CONTENU DE LA PAGE-->			
-		<form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post" id="changer">
-		<label>N° Candidat : </label><input name="numbase" id="numb"/><br/><br/>		
+		<form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post" id="changer">	
 		<label>Centre : </label>	
 		<select name="centre" id="centre" size="1">
 		<!--<option value="0"> Centre ...</option>	-->
